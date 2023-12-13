@@ -1,0 +1,374 @@
+@extends('layouts/master')
+
+@section('title', 'Instansi')
+
+@section('vendor-style')
+
+    <link href="{{ asset('assets/vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+@endsection
+
+@section('vendor-script')
+    <!-- Required vendors -->
+
+    <script src="{{ asset('assets/vendor/chart.js/Chart.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/apexchart/apexchart.js') }}"></script>
+    <script src="{{ asset('assets/vendor/peity/jquery.peity.min.js') }}"></script>
+
+    <script src="{{ asset('assets/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatables/js/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins-init/datatables.init.js') }}"></script>
+@endsection
+@section('content')
+    <section id="showSection">
+        <div class="row m-2">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Data Pengunjung</h3>
+                    </div>
+                    <div class="card-body all-icons">
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>Logo</th>
+                                        <th class="text-right" style="text-align-last: center;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="pagination-container">
+                            <button onclick="prevPage()" id="prev-button" disabled>Halaman Sebelumnya</button>
+                            <span id="page-info">Halaman 1</span>
+                            <button onclick="nextPage()" id="next-button">Halaman Berikutnya</button>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button class="btn btn-primary me-md-2 btn-formtambah" type="button">Tambah Instansi</button>
+                            {{-- <button class="btn btn-primary" type="button">Button</button> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="fromSection" style="display: none;">
+        <div class="row m-2">
+            <div class="col-md-12">
+
+                <div class="card">
+                    <div class="card-header mb-5">
+                        <h3 class="card-title">Tambah Instansi</h3>
+                    </div>
+                    <form action="" class="form" method="" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card-body">
+                            <div class="form-group row mb-4">
+                                <label for="nama_instansi" class="col-sm-3 col-form-label">Nama Insntansi</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="nama_instansi" id="nama_instansi"
+                                        value="" placeholder="Nama Instansi" required autofocus>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="alamat" id="alamat" value=""
+                                        placeholder="Alamat" required autofocus>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="logo" class="col-sm-3 col-form-label">Logo</label>
+                                <img id="logo-image" style="max-width: 100px; max-height: 100px;">
+                                <div class="col-sm-7">
+                                    <input id="logo" class="form-control" type="file" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <button type="submit" id="btn-simpan" class="btn btn-primary m-2"
+                            style=" float: right;">Tambah</button>
+
+                    </form>
+                    <a href="{{ url('/instansi') }}"> <button class="btn btn-warning btn-simple m-2" style=" float: left;">
+                            Kembali
+                        </button></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        const tabel = document.getElementById("table");
+        const form = document.getElementById("form");
+        const url = "http://localhost:8000/api/instansi"
+        let output = '';
+        let no = 1;
+
+        const formtambah = document.querySelector(".btn-formtambah");
+        const Kirimdata = document.querySelector(".form")
+        const cardHeader = document.querySelector('.perubahan');
+
+        const Telp = document.getElementById("telp");
+
+        const showSection = document.getElementById('showSection');
+        const fromSection = document.getElementById('fromSection');
+
+
+
+        let currentPage = 1;
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const pageInfo = document.getElementById('page-info');
+
+        function fetchData(page) {
+            fetch(`${url}?page=${page}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    let output = '';
+
+                    data.data.forEach(instansi => {
+                        output += `
+                        <tr class="tr">
+                            <td class="text-center">${currentPage++}</td>
+                            <td class="nama">${instansi.nama_instansi}</td>
+                            <td class="alamat">${instansi.alamat}</td>
+                            <td class="logo"><img class="img" src="${instansi.logo}" alt="Logo Instansi" style="max-width: 100px; max-height: 100px;"></td>
+                            <td class="td-actions text-right" style="text-align-last: center;">
+                                <a href="" data-id=${ instansi.id }>
+                                    <i id="edit-button" class="bi bi-pencil-square fs-2"></i>
+                                </a>
+                                <a href="" data-id=${ instansi.id }>
+                                    <i id="delete-button" class="bi bi-file-x fs-2"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    `;
+                    });
+
+                    tabel.innerHTML = output;
+
+                    // Update nomor halaman saat ini
+                    currentPage = data.meta.pagination.current_page;
+
+                    // Tampilkan informasi halaman
+                    pageInfo.textContent = `Halaman ${currentPage} dari ${data.meta.pagination.total_pages}`;
+
+                    // Aktifkan/tidak aktifkan tombol sebelumnya dan berikutnya
+                    prevButton.disabled = currentPage === 1;
+                    nextButton.disabled = currentPage === data.meta.pagination.total_pages;
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        // Mendefinisikan fungsi untuk menangani klik tombol halaman berikutnya
+        function nextPage() {
+            currentPage++;
+            fetchData(currentPage);
+        }
+
+        // Mendefinisikan fungsi untuk menangani klik tombol halaman sebelumnya
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                fetchData(currentPage);
+            }
+        }
+
+        // Memuat data untuk halaman pertama saat halaman dimuat
+        fetchData(currentPage);
+
+        // Fungsi untuk menyembunyikan bagian Edit dan menampilkan bagian Data Barang
+        function showData() {
+            showSection.style.display = 'block';
+            fromSection.style.display = 'none';
+        }
+
+        // Fungsi untuk menyembunyikan bagian Data Barang dan menampilkan bagian Edit
+        function showForm() {
+            showSection.style.display = 'none';
+            fromSection.style.display = 'block';
+        }
+
+
+
+
+
+        formtambah.addEventListener('click', (e) => {
+            e.preventDefault();
+            showForm();
+        });
+        Kirimdata.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nama_instansi = document.getElementById('nama_instansi').value;
+            const alamat = document.getElementById('alamat').value;
+            const logoInput = document.getElementById('logo');
+
+            // Buat objek FormData dan tambahkan data
+            const formData = new FormData();
+            formData.append('nama_instansi', nama_instansi);
+            formData.append('alamat', alamat);
+            formData.append('logo', logoInput.files[0]);
+            console.log("Data yang akan dikirim:", {
+                nama_instansi,
+                alamat,
+                logo: logoInput.files[0].name
+            });
+            // Melakukan pengiriman data ke server
+            fetch(url, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        // Perbarui pengaturan header untuk menyertakan token CSRF
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                        "Accept": "application/json",
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        console.error('Respons tidak berhasil:', response);
+                        throw new Error('Terjadi kesalahan saat mengirim data.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Data respons dari server:', data);
+                    alert("Data berhasil dikirim");
+                    // location.reload();
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                });
+        });
+
+
+        tabel.addEventListener('click', event => {
+
+            event.preventDefault();
+            let editButton = event.target.id == 'edit-button';
+            let deleteButton = event.target.id == 'delete-button';
+
+            // console.log(editButton);
+            // console.log(deleteButton);
+
+            let id = event.target.parentElement.dataset.id;
+            // console.log(id);
+            // console.log(editButton);
+            if (deleteButton) {
+                fetch(`${url}/${id}`, {
+                        method: 'DELETE',
+                    })
+                    .then(res => {
+                        if (res.status === 204) {
+                            location.reload();
+                        } else {
+                            return res.json();
+                        }
+                    })
+                    .then(data => {
+                        alert("Data berhasil didelete");
+                    })
+                    .catch(error => {
+                        console.error('Terjadi kesalahan:', error);
+                    });
+            }
+            if (editButton) {
+                // cardHeader.textContent = "Edit Data Instansi";
+                showForm();
+                const parent = event.target.closest('.tr');
+                console.log(parent);
+                let isinama = parent.querySelector('.nama').textContent;
+                let isialamat = parent.querySelector('.alamat').textContent;
+                let isilogo = parent.querySelector('.logo .img').getAttribute('src');
+                let namaInstansi = document.getElementById('nama_instansi');
+                let Alamat = document.getElementById('alamat');
+                const logoInput = document.getElementById('logo');
+                const logoImage = document.getElementById('logo-image');
+                // console.log(id);
+
+
+                namaInstansi.value = isinama;
+                Alamat.value = isialamat;
+                logoImage.src = isilogo;
+
+
+
+
+                let editButtonElement = document.getElementById('btn-simpan');
+
+
+                editButtonElement.addEventListener('click', (e) => {
+                    const nama_instansi = namaInstansi.value;
+                    const alamat = Alamat.value;
+                    console.log(nama_instansi);
+                    console.log(alamat);
+                    console.log(logoInput.files[0].name);
+                    const formData = new FormData();
+                    formData.append('nama_instansi', nama_instansi);
+                    formData.append('alamat', alamat);
+                    formData.append('logo', logoInput.files[0]);
+
+
+                    console.log("Data yang akan diedit:", {
+                        // id,
+                        nama_instansi,
+                        alamat,
+                        logo: logoInput.files[0].name
+                    });
+                    // console.log(formData);
+                    e.preventDefault();
+                    fetch(`${url}/${id}`, {
+                            method: 'PUT',
+                            body: formData,
+                            headers: {
+                                // Perbarui pengaturan header untuk menyertakan token CSRF
+                                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                                "Accept": "application/json",
+                            },
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                console.error('Respons tidak berhasil:', response);
+                                throw new Error('Terjadi kesalahan saat mengirim data.');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Response Data:', data);
+                            alert("Data berhasil diedit");
+                            // location.reload();
+                        })
+                        .catch(error => {
+                            console.error('Terjadi kesalahan:', error);
+                        });
+                });
+
+            }
+
+
+        })
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const authToken = localStorage.getItem('authToken');
+        //     // console.log(authToken);
+        //     if (!authToken) {
+        //         // Token tidak tersedia, arahkan ke halaman login
+        //         window.location.href = "/login";
+        //     }
+        //     // Lanjutkan dengan kode untuk halaman dashboard
+        // });
+    </script>
+@endsection
