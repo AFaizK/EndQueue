@@ -28,6 +28,6 @@ class InstansiResource extends JsonResource
     // Menambahkan metode untuk mendapatkan URL gambar
     private function logoUrl()
     {
-        return $this->logo ? Storage::url($this->logo) : null;
+        return $this->logo ? url($this->logo) : null;
     }
 }

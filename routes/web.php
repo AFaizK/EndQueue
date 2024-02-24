@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\AuthPengunjungController;
+use App\Http\Controllers\Api\InstansiController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AntrianController;
+use App\Http\Controllers\Api\ProfileController;
 
 
 
@@ -24,16 +28,52 @@ use App\Http\Controllers\AuthController;
 //     return view('pages.index-2');
 // });
 // edit Profile
-Route::get('/login', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
-Route::get('/edit-profile', function () {
-    return view('pages.edit-profile');
+Route::post('/search', [AntrianController::class, 'search']);
+Route::post('/registerpengunjung', [AuthPengunjungController::class, 'register']);
+Route::post('/loginpengunjung', [AuthPengunjungController::class, 'login']);
+Route::get('/loginpengunjung', function () {
+    return view('pengguna.login');
+})->name('loginpengunjung');
+Route::get('/registerpengunjung', function () {
+    return view('pengguna.register');
 });
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index']);
-    Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/logoutpengunjung', [AuthPengunjungController::class, 'logout']);
+
+Route::middleware('api_pengunjungs')->group(function(){
+    Route::get('/booking', function () {
+        return view('pengguna.pengunjung');
+    });
+});
+
+Route::middleware('role:Super Admin')->group(function () {
+    // User
+    Route::get('/user', function () {
+        return view('pages.user.user');
+    });
+    Route::get('/tambahuser', function () {
+        return view('pages.user.tambahuser');
+    });
+    // Route::resource('/user/{instansi}', [UserController::class, 'update']);
+    Route::get('/tambahrole', function () {
+        return view('pages.user.tambahrole');
+    });
+    Route::get('/edituser', function () {
+        return view('pages.user.edituser');
+    });
+});
+
+Route::get('/get-profile', [profileController::class, 'fetchData']);
+Route::middleware(['auth.sanctum'])->group(function () {
+    Route::put('/edit-profile', [ProfileController::class, 'update']);
+
+    Route::get('/edit-profile', [profileController::class, 'edit']);
+    Route::get('/dashboard', function() {
+       return view('pages.index-2');
+    });
+    // Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::get('/pengunjung', function () {
         return view('pages.pengunjung.pengunjung');
@@ -46,7 +86,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
      // Instansi
-     Route::get('/instansi', function () {
+    // Route::resource('/instansi/{id}', [InstansiController::class, 'update']);
+    Route::get("/instansi", function () {
         return view('pages.instansi.instansi');
     });
 
@@ -72,20 +113,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return view('pages.antrian.editantrian');
     });
 
-
-    // User
-    Route::get('/user', function () {
-        return view('pages.user.user');
-    });
-    Route::get('/tambahuser', function () {
-        return view('pages.user.tambahuser');
-    });
-    Route::get('/tambahrole', function () {
-        return view('pages.user.tambahrole');
-    });
-    Route::get('/edituser', function () {
-        return view('pages.user.edituser');
-    });
 });
 
 

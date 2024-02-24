@@ -28,62 +28,152 @@
                 <div class="card-header">
                     <h3 class="card-title">Data Antrian</h3>
                 </div>
+                <div class="container container-search mb-3">
+                    <div class="search-container">
+                        <input class="input" type="text" id="search-bar"
+                            placeholder="Search Berdasarkan Nama Instansi, dan alamat"
+                            onkeypress="if(event.keyCode === 13) searchInstansi()">
+                        <svg viewBox="0 0 24 24" class="search__icon">
+                            <g>
+                                <path
+                                    d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+                                </path>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="card-body all-icons">
                     <div class="row">
-                        <table class="table ">
-                            <thead>
+                        <table class="table">
+                            <thead class="thead">
                                 <tr>
-                                    <th class="text-center">No</th>
-                                    <th>Nama Instansi</th>
-                                    <th>Jenis Layanan</th>
-                                    <th>Antrian</th>
-                                    <th class="text-right" style="text-align-last: center;">Actions</th>
+                                    <th class="text-center" style="font-weight: bold ">No</th>
+                                    <th class="text-center">Nama pengguna</th>
+                                    <th class="text-center">Nama Instansi</th>
+                                    <th class="text-center">Jenis Layanan</th>
+                                    <th class="text-center">Nomor Antrian</th>
+                                    <th class="text-center">Tanggal Antrian</th>
                                 </tr>
                             </thead>
-                            <tbody>
-
-                                <tr>
-                                    <td class="text-center"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="td-actions text-right" style="text-align-last: center;">
-                                        <a href=""><button type="button" rel="tooltip"
-                                                class="badge btn-danger btn-link btn-icon btn-sm m-2">
-                                                <i class="bi bi-eye"></i>
-                                        </a>
-                                        <a href="/editpengunjung"><button type="button" rel="tooltip"
-                                                class="badge btn-danger btn-link btn-icon btn-sm m-2">
-                                                <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        </button>
-
-                                        <form action="" method="post" class="d-inline">
-
-                                            <button rel="tooltip" onclick="return confirm('apakah kamu yakin??')"
-                                                class="badge btn-danger btn-link btn-icon btn-sm border-0">
-                                                <i class="bi bi-file-x"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-
+                            <tbody id="table">
                             </tbody>
+
                         </table>
+                        <div id="pagination-container">
+                            <button onclick="prevPage()" id="prev-button" disabled>Halaman Sebelumnya</button>
+                            <span id="page-info">Halaman 1</span>
+                            <button onclick="nextPage()" id="next-button">Halaman Berikutnya</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        const url = 'http://localhost:8000/api/antrian/pagination';
+        const tabel = document.getElementById('table');
+        let no = 1;
+
+
+        let currentPage = 1;
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+        const pageInfo = document.getElementById('page-info');
+
+        function fetchData(page) {
+            fetch(`${url}?page=${page}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    let output = '';
+                    no = (currentPage - 1) * data.meta.pagination.per_page + 1;
+                    data.data.forEach(antrian => {
+                        output += `
+                    <tr>
+                        <td class="text-center">${no++}</td>
+                        <td class="text-center">${antrian.pengunjung.name}</td>
+                        <td class="text-center">${antrian.layanan.instansi.nama_instansi}</td>
+                        <td class="text-center">${antrian.layanan.nama_layanan}</td>
+                        <td class="text-center">${antrian.nomor_antrian}</td>
+                        <td class="text-center">${antrian.tanggal_antrian}</td>
+                    </tr>
+                `;
+                    });
+
+                    tabel.innerHTML = output;
+
+                    // Update nomor halaman saat ini
+                    currentPage = data.meta.pagination.current_page;
+
+                    // Tampilkan informasi halaman
+                    pageInfo.textContent = `Halaman ${currentPage} dari ${data.meta.pagination.total_pages}`;
+
+                    // Aktifkan/tidak aktifkan tombol sebelumnya dan berikutnya
+                    prevButton.disabled = currentPage === 1;
+                    nextButton.disabled = currentPage === data.meta.pagination.total_pages;
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        // Mendefinisikan fungsi untuk menangani klik tombol halaman berikutnya
+        function nextPage() {
+            currentPage++;
+            fetchData(currentPage);
+        }
+
+        // Mendefinisikan fungsi untuk menangani klik tombol halaman sebelumnya
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                fetchData(currentPage);
+            }
+        }
+
+        // Memuat data untuk halaman pertama saat halaman dimuat
+        fetchData(currentPage);
+
+
+        function searchAntrian() {
+            let no = 1;
+            var query = document.getElementById('search-bar').value;
+            fetch('/api/antrian/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}', // Tambahkan CSRF token jika menggunakan Laravel
+                    },
+                    body: JSON.stringify({
+                        query: query
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Menghapus semua elemen pada tbody
+                    document.getElementById('table').innerHTML = '';
+
+                    // Memasukkan data hasil pencarian ke dalam tabel
+                    data.data.forEach((antrian, index) => {
+                        var row = `<tr>
+                            <td class="text-center">${index + 1}</td>
+                            <td class="text-center">${antrian.pengunjung.name}</td>
+                            <td class="text-center">${antrian.layanan.instansi.nama_instansi}</td>
+                            <td class="text-center">${antrian.layanan.nama_layanan}</td>
+                            <td class="text-center">${antrian.nomor_antrian}</td>
+                            <td class="text-center">${antrian.tanggal_antrian}</td>
+                        </tr>`;
+                        document.getElementById('table').innerHTML += row;
+                    });
+                })
+                .catch(error => {
+                    console.error('There was an error!', error);
+                });
+        }
+    </script>
 @endsection
-<script>
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const authToken = localStorage.getItem('authToken');
-    //     // console.log(authToken);
-    //     if (!authToken) {
-    //         // Token tidak tersedia, arahkan ke halaman login
-    //         window.location.href = "/login";
-    //     }
-    //     // Lanjutkan dengan kode untuk halaman dashboard
-    // });
-</script>

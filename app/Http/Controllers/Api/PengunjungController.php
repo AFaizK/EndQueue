@@ -3,30 +3,27 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
-use App\Http\Resources\UserResource;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\PengunjungResource;
+use App\Models\Pengunjung;
 
-class UserController extends Controller
+class PengunjungController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = User::all();
-        return UserResource::collection($user);
+        $Pengunjung = Pengunjung::all();
+        return PengunjungResource::collection($Pengunjung);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
-        $User = User::create($request->all());
-
-        return new UserResource($User);
+        //
     }
 
     /**
@@ -40,23 +37,18 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request,User $User)
+    public function update(Request $request, string $id)
     {
-        // dd($request->all());
-        $User->update($request->all());
-        return new UserResource($User);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $User)
+    public function destroy(string $id)
     {
-        $User->delete();
-
-        return response(null, 204);
+        //
     }
-
     public function search(Request $request)
     {
          // Validasi input
@@ -67,33 +59,34 @@ class UserController extends Controller
         // Lakukan pencarian berdasarkan query yang diberikan
         $searchQuery = $validatedData['query'];
 
-        $user = User::where(function ($query) use ($searchQuery) {
+        $pengunjung = Pengunjung::where(function ($query) use ($searchQuery) {
             $query->where('name', 'like', '%' . $searchQuery . '%')
                 ->orWhere('username', 'like', '%' . $searchQuery . '%')
                 ->orWhere('email', 'like', '%' . $searchQuery . '%')
-                ->orWhere('role', 'like', '%' . $searchQuery . '%')
-                ->orWhere('status', 'like', '%' . $searchQuery . '%')
                 ->orWhere('no_hp', 'like', '%' . $searchQuery . '%');
         })
         ->get();
 
-        return response()->json(['data' => $user]);
+        return response()->json(['data' => $pengunjung]);
 
     }
     public function pagination()
     {
-        $userQuery = User::query();
-        $user = $userQuery->paginate(10);
-        return UserResource::collection($user)->additional([
+        $pengunjungQuery = Pengunjung::query(); // Inisialisasi query builder
+        $pengunjung = $pengunjungQuery->paginate(10); // Jalankan paginasi
+
+        return PengunjungResource::collection($pengunjung)->additional([
             'meta' => [
                 'pagination' => [
-                    'total' => $user->total(),
-                    'count' => $user->count(),
-                    'per_page' => $user->perPage(),
-                    'current_page' => $user->currentPage(),
-                    'total_pages' => $user->lastPage(),
+                    'total' => $pengunjung->total(), // Mendapatkan jumlah total sebelum paginasi
+                    'count' => $pengunjung->count(),
+                    'per_page' => $pengunjung->perPage(),
+                    'current_page' => $pengunjung->currentPage(),
+                    'total_pages' => $pengunjung->lastPage(),
                 ],
             ],
         ]);
     }
+
+
 }

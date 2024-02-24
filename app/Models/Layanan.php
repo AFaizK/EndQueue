@@ -9,12 +9,14 @@ class Layanan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_instansi',
-       'nama_layanan',
-       'kode_layanan',
+       'id_instansi', 'nama_layanan', 'kode_layanan'
     ];
     public function instansi()
     {
         return $this->belongsTo(Instansi::class, 'id_instansi', 'id');
+    }
+    public function antrian()
+    {
+        return $this->hasMany(Antrian::class, 'id_layanan', 'id');
     }
 }

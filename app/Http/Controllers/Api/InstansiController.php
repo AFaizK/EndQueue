@@ -16,7 +16,7 @@ class InstansiController extends Controller
      */
     public function index()
     {
-        $instansi = Instansi::paginate(4);
+        $instansi = Instansi::paginate(5);
         return InstansiResource::collection($instansi)->additional([
             'meta' => [
                 'pagination' => [
@@ -29,6 +29,12 @@ class InstansiController extends Controller
             ],
         ]);
     }
+    public function getAll()
+    {
+        $instansi = Instansi::all();
+        return InstansiResource::collection($instansi);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -40,10 +46,13 @@ class InstansiController extends Controller
         // Simpan gambar ke penyimpanan publik
         $imagePath = $request->file('logo')->store('public/images');
 
+        // Buat path lengkap
+        $fullImagePath = 'storage/' . str_replace('public/', '', $imagePath);
+
         $instansi = Instansi::create([
             'nama_instansi' => $validatedData['nama_instansi'],
             'alamat' => $validatedData['alamat'],
-            'logo' => $imagePath, // Simpan path gambar
+            'logo' => $fullImagePath, // Simpan path gambar
         ]);
 
         return new InstansiResource($instansi);
@@ -52,34 +61,41 @@ class InstansiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Instansi $instansi)
     {
-        //
+        $instansi = Instansi::find($instansi);
+        return InstansiResource::collection($instansi);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(InstansiRequest $request, Instansi $instansi)
+    public function update(InstansiRequest $request, $id)
     {
-
         $validatedData = $request->validated();
 
-        // Jika ada gambar baru, simpan gambar baru dan hapus yang lama
+        $instansi = Instansi::findOrFail($id);
+
+        // Jika ada file logo yang diunggah, update gambar
         if ($request->hasFile('logo')) {
-            $newImagePath = $request->file('logo')->store('public/images');
-            Storage::delete($instansi->logo);
-            $instansi->logo = $newImagePath;
+            // Hapus gambar lama
+            if ($instansi->logo) {
+                Storage::delete($instansi->logo);
+            }
+
+            // Simpan gambar baru
+            $imagePath = $request->file('logo')->store('public/images');
+            $fullImagePath = 'storage/' . str_replace('public/', '', $imagePath);
+
+            $validatedData['logo'] = $fullImagePath;
         }
 
-        $instansi->update([
-            'nama_instansi' => $validatedData['nama_instansi'],
-            'alamat' => $validatedData['alamat'],
+        // Update data instansi
+        $instansi->update($validatedData);
 
-        ]);
-        $instansi->save();
         return new InstansiResource($instansi);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -89,5 +105,25 @@ class InstansiController extends Controller
         $instansi->delete();
 
         return response(null, 204);
+    }
+
+    public function search(Request $request)
+    {
+         // Validasi input
+        $validatedData = $request->validate([
+            'query' => 'required|string',
+        ]);
+
+        // Lakukan pencarian berdasarkan query yang diberikan
+        $searchQuery = $validatedData['query'];
+
+        $instansi = Instansi::where(function ($query) use ($searchQuery) {
+            $query->where('nama_instansi', 'like', '%' . $searchQuery . '%')
+                ->orWhere('alamat', 'like', '%' . $searchQuery . '%');
+        })
+        ->get();
+
+        return response()->json(['data' => $instansi]);
+
     }
 }

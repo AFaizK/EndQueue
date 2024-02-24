@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LayananResource extends JsonResource
+class AntrianResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,5 +16,4 @@ class LayananResource extends JsonResource
     {
         return parent::toArray($request);
     }
-
 }

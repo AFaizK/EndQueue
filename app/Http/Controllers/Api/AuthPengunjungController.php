@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Validator;
-use App\Models\User;
+use App\Models\Pengunjung;
 
-class AuthController extends BaseController
+class AuthPengunjungController extends BaseController
 {
     public function signin(Request $request)
     {
@@ -19,39 +20,36 @@ class AuthController extends BaseController
 
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $user = User::where('email', $request->email)->first();
+        if (Auth::guard('api_pengunjungs')->attempt($credentials)) {
+            $pengunjung = Pengunjung::where('email', $request->email)->first();
 
-            // Check if the user status is active
-            if ($user->status !== 'Aktif') {
-                Auth::logout(); // Log out the user if status is not active
-                return response()->json(['message' => 'Your account is inactive.'], 401);
-            }
+            // Check if the pengunjung status is active
 
-            $token = $user->createToken('MyAuthApp')->plainTextToken;
+            $token = $pengunjung->createToken('auth_token')->plainTextToken;
 
             return response()->json([
                 'success' => true,
                 'data' => [
                     'token' => $token,
-                    'name' => $user->name,
-                    'role' => $user->role,
+                    'name' => $pengunjung->name,
                 ],
                 'message' => 'User signed in',
-                'redirect' => url('/dashboard'),
+                'redirect' => url('/booking'),
             ]);
         } else {
             return response()->json(['message' => 'Unauthorized.'], 401);
         }
     }
-    public function signout(Request $request)
+    public function logout(Request $request)
     {
-        if (Auth::check()) {
-            $request->user()->tokens()->delete();
-        }
+        $request->user('api_pengunjungs')->tokens()->delete();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json([
+            'success' => true,
+            'message' => 'User logged out successfully.'
+        ]);
     }
+
 
 
     // public function signin(Request $request)
@@ -86,8 +84,6 @@ class AuthController extends BaseController
     public function signup(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'status' => 'required',
-            'role' => 'required',
             'name' => 'required',
             'username' => 'required',
             'no_hp' => 'required',
@@ -102,39 +98,12 @@ class AuthController extends BaseController
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] = $user->createToken('MyAuthApp')->plainTextToken;
-        $success['name'] = $user->name;
+        $pengunjung = Pengunjung::create($input);
+        $success['token'] = $pengunjung->createToken('MyAuthApp')->plainTextToken;
+        $success['name'] = $pengunjung->name;
 
         return $this->sendResponse($success, 'User created successfully.');
     }
-    public function editUser(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'status' => 'required',
-            'role' => 'required',
-            'name' => 'required',
-            'username' => 'required',
-            'no_hp' => 'required',
-            'email' => 'required|email',
-            'password' => 'sometimes|required|min:6', // Password is optional, but if provided, it should meet the minimum length requirement.
-            'confirm_password' => 'sometimes|required_with:password|same:password', // Confirm password only required if password is provided.
-        ]);
 
-        if ($validator->fails()) {
-            return $this->sendError('Error validation', $validator->errors());
-        }
-
-        $user = User::findOrFail($id);
-        $userData = $request->except('password', 'confirm_password');
-
-        if ($request->filled('password')) {
-            $userData['password'] = bcrypt($request->input('password'));
-        }
-
-        $user->update($userData);
-
-        return $this->sendResponse([], 'User updated successfully.');
-    }
 
 }

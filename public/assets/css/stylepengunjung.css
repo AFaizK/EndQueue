@@ -1,0 +1,238 @@
+/* CSS umum untuk semua perangkat */
+
+* {
+    font-family: Arial, sans-serif;
+    max-width: 320px;
+    margin: 0 auto;
+}
+.card {
+    max-width: 100%; /* Membatasi lebar kartu agar sesuai dengan layar */
+}
+h6 {
+    font-weight: bold;
+}
+#card-section-booking {
+    padding: 10px;
+}
+.card-title-instansi {
+    font-size: 15px;
+    font-weight: bold;
+}
+.card-body-instansi {
+    font-size: 12px;
+}
+
+@media (max-width: 750px) {
+    * {
+        font-family: Arial, sans-serif;
+        max-width: 750px;
+        margin: 0 auto;
+    }
+    .card {
+        max-width: 100%; /* Membatasi lebar kartu agar sesuai dengan layar */
+    }
+    h6 {
+        font-weight: bold;
+    }
+    #card-section-booking {
+        padding: 20px;
+    }
+    .card-title-instansi {
+        font-size: 25px;
+        font-weight: bold;
+    }
+    .card-body-instansi {
+        font-size: 20px;
+    }
+}
+.custom-navbar {
+    background-color: #c7e5f5;
+    color: #000;
+}
+.offcanvas-custom {
+    background-color: #c7e5f5;
+
+    color: #000;
+}
+.offcanvas-custom li {
+    color: #f8f9fa;
+}
+.dropdown-custom {
+    background-color: #c7e5f5;
+}
+
+.clickable-card {
+    cursor: pointer;
+}
+
+.clickable-card:hover {
+    background-color: #f8f9fa;
+}
+
+/* Gaya untuk tombol kirim booking */
+#cardTanggal button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#cardTanggal button:hover {
+    background-color: #2980b9;
+}
+
+/* card */
+#card-section-booking .card-pengunjung {
+    background-color: #c7e5f5;
+    border-radius: 10px;
+    /* color: ; */
+    box-shadow: 10px 10px #86a7fc;
+    transition: transform 0.3s ease;
+}
+
+#card-section-booking .card-pengunjung:hover,
+.card-pengunjung:active {
+    transform: scale(1.05);
+}
+
+/* modals cek antrian */
+.modal-custom {
+    background-color: #c7e5f5;
+}
+.modal-body p {
+    background-color: #26b3ff;
+    border-radius: 10px;
+    font-size: 60px;
+    font-weight: 800;
+    padding: 20px;
+    box-shadow: 10px 10px;
+    color: coral;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+#bookingInfo {
+    text-align: center;
+}
+/*
+#bookingInfo h3,
+h5 {
+    /* background-color: #3498db; */
+/* border-radius: 10px; */
+/* font-weight:; */
+/* padding: 10px; */
+/* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); */
+/* }  */
+
+.close-modal {
+    /* background-color: #3498db; */
+    border-radius: 10px;
+
+    box-shadow: 0 4px 8px black;
+}
+/* card */
+
+/* login register css */
+#card-section-login,
+#card-section-register {
+    padding: 5px;
+}
+.card-login,
+.card-register {
+    box-shadow: 2px 2px 2px rgb(146, 145, 145),
+        inset 2px 2px 2px rgb(219, 219, 219),
+        -1px -1px 20px rgba(206, 206, 206, 0.781);
+    outline: none;
+    border-radius: 30px;
+}
+
+.input-custom {
+    width: 100%;
+    height: 2rem;
+    background-color: transparent;
+    border: 2px solid transparent;
+    color: rgb(0, 0, 0);
+    padding: 1rem;
+    box-shadow: 2px 2px 2px rgb(146, 145, 145),
+        inset 2px 2px 2px rgb(219, 219, 219),
+        -1px -1px 20px rgba(206, 206, 206, 0.781);
+    outline: none;
+    border-radius: 10px;
+    font-size: medium;
+}
+
+.input-custom:focus {
+    box-shadow: 2px 2px 2px rgb(82, 80, 80),
+        inset 2px 2px 5px rgba(82, 80, 80, 0.562),
+        -1px -1px 5px rgba(170, 167, 167, 0.493),
+        inset -1px -1px 5px rgba(187, 185, 185, 0.822);
+}
+
+/* button */
+.button1 {
+    display: inline-block;
+    transition: all 0.2s ease-in;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    color: #090909;
+    padding: 0.7em 1.7em;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+.button1:active {
+    color: #666;
+    box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+
+.button1:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.25);
+    top: 100%;
+    width: 140%;
+    height: 180%;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: block;
+    transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+}
+
+.button1:after {
+    content: "";
+    position: absolute;
+    left: 55%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.45);
+    top: 180%;
+    width: 160%;
+    height: 190%;
+    background-color: blue;
+    border-radius: 50%;
+    display: block;
+    transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+}
+
+.button1:hover {
+    color: #ffffff;
+    border: 1px solid blue;
+}
+
+.button1:hover:before {
+    top: -35%;
+    background-color: blue;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.button1:hover:after {
+    top: -45%;
+    background-color: blue;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}

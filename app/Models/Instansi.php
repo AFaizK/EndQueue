@@ -9,7 +9,7 @@ class Instansi extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama_instansi',
+       'nama_instansi',
        'alamat',
        'logo',
     ];

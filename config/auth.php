@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api_pengunjungs' => [
+            'driver' => 'session',
+            'provider' => 'pengunjungs',
+        ],
     ],
 
     /*
@@ -63,6 +67,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+
+        ],
+        'pengunjungs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Pengunjung::class,
         ],
 
         // 'users' => [
@@ -97,6 +106,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
     ],
 
     /*

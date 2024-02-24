@@ -15,7 +15,7 @@
                 d="M31.3287 2.96046L26.3411 0.0805375C26.1549 -0.0268458 25.9256 -0.0268458 25.7394 0.0805375C19.754 3.53731 12.3785 3.53785 6.39259 0.0816161L6.39043 0.0805375C6.20426 -0.0268458 5.97493 -0.0268458 5.78876 0.0805375L0.801104 2.95992C0.614937 3.0673 0.5 3.26588 0.5 3.48119V9.24049C0.5 9.4558 0.614937 9.65438 0.801104 9.76176C6.78759 13.2169 10.4753 19.6038 10.4753 26.5162V26.5184C10.4753 26.7332 10.5903 26.9323 10.7764 27.0397L15.7641 29.9196C15.8574 29.9736 15.961 30 16.0652 30C16.1693 30 16.2729 29.973 16.3663 29.9196L21.3539 27.0397C21.5401 26.9323 21.655 26.7337 21.655 26.5184C21.6545 19.6059 25.3422 13.2185 31.3287 9.7623L31.3298 9.76176C31.516 9.65438 31.6309 9.4558 31.6309 9.24049V3.48173C31.6293 3.26642 31.5149 3.06784 31.3287 2.96046ZM30.4259 8.89352L15.7635 17.359C15.5774 17.4664 15.4624 17.665 15.4624 17.8803V22.4168C14.9876 22.651 14.6692 23.1534 14.7043 23.7259C14.7458 24.3993 15.2854 24.9471 15.9589 24.9978C16.7591 25.0582 17.4272 24.4263 17.4272 23.639C17.4272 23.1026 17.1169 22.6386 16.6663 22.4163C16.6663 19.824 18.0493 17.4286 20.2941 16.1324L20.4496 16.0429L20.4501 26.1714L16.0641 28.7038L11.6781 26.1714V9.24103C11.6781 9.02627 11.5632 8.82715 11.377 8.71976L7.44754 6.45123C7.4497 6.42155 7.45078 6.39187 7.45078 6.36165C7.45078 5.59162 6.81187 4.97052 6.03537 5.0002C5.32901 5.02718 4.75378 5.60241 4.7268 6.30877C4.69712 7.08527 5.31822 7.72471 6.08825 7.72471C6.36885 7.72471 6.62948 7.63999 6.84587 7.49484C9.09066 8.79099 10.4737 11.1863 10.4737 13.7786V13.9573L1.70172 8.89406V3.82978L6.08771 1.29737L20.7501 9.76284C20.9363 9.87022 21.1656 9.87022 21.3518 9.76284L25.2807 7.4943C25.4993 7.64108 25.7631 7.72579 26.0464 7.72417C26.7895 7.71986 27.3998 7.10686 27.4009 6.36381C27.4019 5.60997 26.7916 4.99912 26.0383 4.99912C25.2856 4.99912 24.6758 5.60943 24.6758 6.36165C24.6758 6.39187 24.6769 6.42155 24.6791 6.45123C22.4337 7.74738 19.6676 7.74738 17.4223 6.45123L17.268 6.36219L26.0383 1.29737L30.4243 3.82978V8.89352H30.4259Z"
                 fill="white" />
         </svg> --}}
-        <svg class="brand-title" width="111" height="24" viewBox="0 0 111 24" fill="none"
+        {{-- <svg class="brand-title" width="111" height="24" viewBox="0 0 111 24" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <rect class="yesh" width="49" height="22" transform="translate(0 1)" fill="white" />
             <path class="admin1"
@@ -24,7 +24,7 @@
             <path class="admin2"
                 d="M63.484 16.016H59.292L58.62 18H55.756L59.82 6.768H62.988L67.052 18H64.156L63.484 16.016ZM62.78 13.904L61.388 9.792L60.012 13.904H62.78ZM72.4969 6.768C73.6809 6.768 74.7155 7.00267 75.6009 7.472C76.4862 7.94133 77.1689 8.60267 77.6489 9.456C78.1395 10.2987 78.3849 11.2747 78.3849 12.384C78.3849 13.4827 78.1395 14.4587 77.6489 15.312C77.1689 16.1653 76.4809 16.8267 75.5849 17.296C74.6995 17.7653 73.6702 18 72.4969 18H68.2889V6.768H72.4969ZM72.3209 15.632C73.3555 15.632 74.1609 15.3493 74.7369 14.784C75.3129 14.2187 75.6009 13.4187 75.6009 12.384C75.6009 11.3493 75.3129 10.544 74.7369 9.968C74.1609 9.392 73.3555 9.104 72.3209 9.104H71.0249V15.632H72.3209ZM92.6339 6.768V18H89.8979V11.264L87.3859 18H85.1779L82.6499 11.248V18H79.9139V6.768H83.1459L86.2979 14.544L89.4179 6.768H92.6339ZM97.3374 6.768V18H94.6014V6.768H97.3374ZM109.368 18H106.632L102.056 11.072V18H99.3201V6.768H102.056L106.632 13.728V6.768H109.368V18Z"
                 fill="white" />
-        </svg>
+        </svg> --}}
     </a>
     <div class="nav-control" style="display: flex;
     align-items: center; justify-content: center;">
@@ -73,13 +73,13 @@
                                                 <img src="{{ asset('assets/images/user.jpg') }}"
                                                     class="avatar avatar-md" alt="">
                                                 <div>
-                                                    <h6>Hanuman Prajapati</h6>
-                                                    <span>Web Designer</span>
+                                                    <h6 id="namaUser"></h6>
+                                                    <span id="role"></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-body px-0 py-2" id="profile">
-                                            <a href="" class="dropdown-item ai-icon ">
+                                            <a href="/edit-profile" class="dropdown-item ai-icon ">
                                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -91,17 +91,16 @@
                                                         stroke="var(--primary)" stroke-width="1.42857"
                                                         stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
-
                                                 <span class="ms-2">Profile </span>
                                             </a>
                                             <form id="logoutForm" action="{{ url('/logout') }}" method="POST">
                                                 @csrf
                                                 <!-- Add this line if you are using Blade templating engine in Laravel -->
-                                                <a href="#" onclick="logout()" class="dropdown-item ai-icon">
+                                                <a href="#" class="dropdown-item ai-icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="18"
                                                         height="18" viewBox="0 0 24 24" fill="none"
-                                                        stroke="var(--primary)" stroke-width="2"
-                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                        stroke="var(--primary)" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round">
                                                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                                         <polyline points="16 17 21 12 16 7"></polyline>
                                                         <line x1="21" y1="12" x2="9"
@@ -127,12 +126,38 @@
     Header end ti-comment-alt
 ***********************************-->
 <script>
-    function logout() {
-        document.getElementById('logoutForm').submit();
+    const userName = localStorage.getItem('name');
+    const userRole = localStorage.getItem('role');
+
+    // Set nama pengunjung
+    // setUserName(userName);
+
+    function setUserName(name) {
+        const namaUserElement = document.getElementById('namaUser');
+        if (namaUserElement) {
+            namaUserElement.innerText = name || 'User';
+        } else {
+            console.error('Element with id "namaUser" not found.');
+        }
     }
+    setUserName(userName);
+
+    function setUserRole(role) {
+        const userRoleElement = document.getElementById('role');
+        if (userRoleElement) {
+            userRoleElement.innerText = role || 'admin';
+        } else {
+            console.error('Element with id "namaUser" not found.');
+        }
+    }
+    setUserRole(userRole);
+
+    // function logout() {
+    //     document.getElementById('logoutForm').submit();
+    // }
 
     document.addEventListener('DOMContentLoaded', function() {
-        const logoutButton = document.getElementById('profile');
+        const logoutButton = document.getElementById('logoutForm');
 
         if (logoutButton) {
             logoutButton.addEventListener('click', function() {

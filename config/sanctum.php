@@ -33,7 +33,18 @@ return [
     |
     */
 
-    'guard' => ['web'],
+    // 'guard' => ['web'],
+    'guards' => [
+        'web',
+        'api_users' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+        'api_pengunjungs' => [
+            'driver' => 'sanctum',
+            'provider' => 'pengunjungs',
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------

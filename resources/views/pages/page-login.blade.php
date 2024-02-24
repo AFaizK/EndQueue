@@ -15,10 +15,6 @@
                         <div id="mCSB_1_container" class="mCSB_container" style="position:relative; top:0; left:0;"
                             dir="ltr">
                             <div class="login-form style-2">
-
-
-
-
                                 <div class="card-body">
                                     <div class="logo-header row g-2 align-items-center">
                                         <img src="../assets/images/endqueue.png" class="col-sm-6"
@@ -27,46 +23,16 @@
                                             <span style="color: #13BBED">END</span><span style="color: #035989">QUEUE</span>
                                         </div>
                                     </div>
-
                                     <nav>
                                         <div class="nav nav-tabs border-bottom-0" id="nav-tab" role="tablist">
 
                                             <div class="tab-content w-100" id="nav-tabContent">
                                                 <div class="tab-pane fade show active" id="nav-personal" role="tabpanel"
                                                     aria-labelledby="nav-personal-tab">
-                                                    {{-- <form class="dz-form pb-3 login-admin">
-                                                        <h3 class="form-title m-t0">Personal Information</h3>
-                                                        <div class="dz-separator-outer m-b5">
-                                                            <div class="dz-separator bg-primary style-liner"></div>
-                                                        </div>
-                                                        <p>Enter your e-mail address and your password. </p>
-                                                        <div class="form-group mb-3" id="email">
-                                                            <input type="email" class="form-control">
-                                                        </div>
-                                                        <div class="form-group mb-3" id="password">
-                                                            <input type="password" class="form-control">
-                                                        </div>
-                                                        <div class="form-group text-left mb-5 forget-main">
-                                                            <button type="submit" class="btn btn-primary">Sign Me
-                                                                In</button>
-                                                            <span class="form-check d-inline-block">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                    id="check1" name="example1">
-                                                                <label class="form-check-label" for="check1">Remember
-                                                                    me</label>
-                                                            </span>
-                                                            <button
-                                                                class="nav-link m-auto btn tp-btn-light btn-primary forget-tab "
-                                                                id="nav-forget-tab" data-bs-toggle="tab"
-                                                                data-bs-target="#nav-forget" type="button" role="tab"
-                                                                aria-controls="nav-forget" aria-selected="false">Forget
-                                                                Password ?</button>
-                                                        </div>
-                                                    </form> --}}
-
-                                                    <form id="loginForm" method="POST" enctype="multipart/form-data">
+                                                    <form id="loginForm" action="{{ url('/login') }}" method="POST"
+                                                        enctype="multipart/form-data">
                                                         @csrf
-                                                        <h3 class="form-title m-t0">Personal Information</h3>
+                                                        <h3 class="form-title m-t0">Admin Information</h3>
                                                         <div class="dz-separator-outer m-b5">
                                                             <div class="dz-separator bg-primary style-liner"></div>
                                                         </div>
@@ -79,21 +45,9 @@
                                                             <input name="password" type="password" id="password"
                                                                 class="form-control">
                                                         </div>
-                                                        <div class="form-group text-left mb-5 forget-main">
-                                                            <button type="submit" class="btn btn-primary"
-                                                                id="submitBtn">Sign Me In</button>
-                                                            <span class="form-check d-inline-block">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                    id="check1" name="example1">
-                                                                <label class="form-check-label" for="check1">Remember
-                                                                    me</label>
-                                                            </span>
-                                                            <button
-                                                                class="nav-link m-auto btn tp-btn-light btn-primary forget-tab"
-                                                                id="nav-forget-tab" data-bs-toggle="tab"
-                                                                data-bs-target="#nav-forget" type="button" role="tab"
-                                                                aria-controls="nav-forget" aria-selected="false">Forget
-                                                                Password ?</button>
+                                                        <div class="form-group d-grid gap-2">
+                                                            <button type="button" class="btn btn-primary" id="submitBtn"
+                                                                onclick="submitLoginForm()">Sign Me In</button>
                                                         </div>
                                                     </form>
 
@@ -129,7 +83,7 @@
                                     <div class=" bottom-footer clearfix m-t10 m-b20 row text-center">
                                         <div class="col-lg-12 text-center">
                                             <span> © Copyright by <span class="heart"></span>
-                                                <a href="javascript:void(0);">DexignZone </a> All rights reserved.</span>
+                                                <a href="javascript:void(0);">ENDQUEUE </a> All rights reserved.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -146,25 +100,36 @@
     <script>
         function submitLoginForm() {
             const formData = new FormData(document.getElementById('loginForm'));
-            console.log(formData)
-            fetch('/login', {
+
+            fetch('http://localhost:8000/login', {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': formData.get('_token'),
                     },
                     body: formData,
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        console.error('Response not successful:', response);
+                        throw new Error('An error occurred while receiving data.');
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    // Handle the response
-                    console.log(data.token);
+                    if (data.success) {
+                        // Simpan informasi pengguna ke localStorage
+                        localStorage.setItem('name', data.data.name);
+                        localStorage.setItem('role', data.data.role);
 
-                    // Redirect to the specified URL (e.g., /dashboard)
-                    window.location.href = data.redirect;
+                        // Redirect to the booking page
+                        window.location.href = data.redirect;
+                    } else {
+                        console.error('Login failed. Unexpected response structure:', data);
+                    }
                 })
                 .catch(error => {
-                    // Handle errors
                     console.error('Error:', error);
+                    alert("login gagal, periksa kembali username dan password anda!!");
                 });
         }
     </script>

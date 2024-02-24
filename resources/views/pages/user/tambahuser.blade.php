@@ -35,30 +35,29 @@
                         <div class="form-group row mb-4">
                             <label for="pre" class="col-sm-3 col-form-label">Nama User</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control @error('judul') is-invalid @enderror"
-                                    name="judul" id="judul" value="{{ old('judul') }}" placeholder="Nama User"
-                                    required autofocus>
-                                @error('judul')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="text" class="form-control" name="judul" id="judul" value=""
+                                    placeholder="Nama User" required autofocus>
+
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label for="pre" class="col-sm-3 col-form-label">Status</label>
+                            <div class="col-sm-7">
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    <option selected>Pilih Status User</option>
+                                    <option value="1">Aktif</option>
+                                    <option value="2">Nonaktif</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
                             <label for="pre" class="col-sm-3 col-form-label">Role</label>
                             <div class="col-sm-7">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle btn-lg" type="button"
-                                        id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                        <li><button class="dropdown-item" type="button">Manager</button></li>
-                                        <li><button class="dropdown-item" type="button">Admin</button></li>
-                                        <li><button class="dropdown-item" type="button">Super Admin</button></li>
-                                    </ul>
-                                </div>
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    <option selected>Pilih Role User</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Super Admin</option>
+                                </select>
                             </div>
                         </div>
 
@@ -66,53 +65,33 @@
                         <div class="form-group row mb-4">
                             <label for="pre" class="col-sm-3 col-form-label">Username</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control @error('judul') is-invalid @enderror"
-                                    name="judul" id="judul" value="{{ old('judul') }}" placeholder="Username"
-                                    required autofocus>
-                                @error('judul')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="text" class="form-control" name="judul" id="judul" value=""
+                                    placeholder="Username" required autofocus>
+
                             </div>
                         </div>
                         <div class="form-group row mb-4">
                             <label for="pre" class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control @error('judul') is-invalid @enderror"
-                                    name="judul" id="judul" value="{{ old('judul') }}" placeholder="Email" required
-                                    autofocus>
-                                @error('judul')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="text" class="form-control " name="judul" id="judul" value=""
+                                    placeholder="Email" required autofocus>
+
                             </div>
                         </div>
                         <div class="form-group row mb-4">
                             <label for="pre" class="col-sm-3 col-form-label">No HandPhone</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control @error('judul') is-invalid @enderror"
-                                    name="judul" id="judul" value="{{ old('judul') }}" placeholder="No HandPhone"
-                                    required autofocus>
-                                @error('judul')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="text" class="form-control" name="judul" id="judul" value=""
+                                    placeholder="No HandPhone" required autofocus>
+
                             </div>
                         </div>
                         <div class="form-group row mb-4">
                             <label for="pre" class="col-sm-3 col-form-label">Password</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control @error('judul') is-invalid @enderror"
-                                    name="judul" id="judul" value="{{ old('judul') }}" placeholder="Password"
-                                    required autofocus>
-                                @error('judul')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <input type="text" class="form-control" name="judul" id="judul" value=""
+                                    placeholder="Password" required autofocus>
+
                             </div>
                         </div>
                     </div>

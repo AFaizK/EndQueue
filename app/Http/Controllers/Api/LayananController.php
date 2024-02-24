@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LayananRequest;
 use App\Http\Resources\LayananResource;
 use App\Models\Layanan;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class LayananController extends Controller
@@ -40,20 +41,53 @@ class LayananController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(LayananRequest $request, Layanan $layanan)
+    public function update(LayananRequest $request,Layanan $Layanan)
     {
-        $layanan->with('instansi')->update($request->all());
-
-        return new LayananResource($layanan);
+        $Layanan->update($request->all());
+        return new LayananResource($Layanan);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Layanan $layanan)
+    public function destroy(Layanan $Layanan)
     {
-        $layanan->delete();
+        $Layanan->delete();
 
         return response(null, 204);
+    }
+    public function search(Request $request)
+    {
+        // Validasi input
+        $validatedData = $request->validate([
+            'query' => 'required|string',
+        ]);
+
+        // Lakukan pencarian berdasarkan query yang diberikan
+        $searchQuery = $validatedData['query'];
+
+        $layanan = Layanan::whereHas('instansi', function ($pengunjungQuery) use ($searchQuery) {
+            $pengunjungQuery->where('nama_instansi', 'like', '%' . $searchQuery . '%');
+        })->orWhere('nama_layanan', 'like', '%' . $searchQuery . '%')
+        ->orWhere('kode_layanan', 'like', '%' . $searchQuery . '%')
+        ->with('instansi')
+        ->get();
+
+        return response()->json(['data' => $layanan]);
+    }
+    public function pagination()
+    {
+        $layanan = Layanan::with('instansi')->paginate(5);
+        return LayananResource::collection($layanan)->additional([
+            'meta' => [
+                'pagination' => [
+                    'total' => $layanan->total(),
+                    'count' => $layanan->count(),
+                    'per_page' => $layanan->perPage(),
+                    'current_page' => $layanan->currentPage(),
+                    'total_pages' => $layanan->lastPage(),
+                ],
+            ],
+        ]);
     }
 }

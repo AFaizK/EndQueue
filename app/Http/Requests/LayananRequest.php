@@ -22,9 +22,9 @@ class LayananRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_instansi' => ['required'],
-            'nama_layanan' => ['required'],
-            'kode_layanan'  => ['required'],
+            'id_instansi' => 'required',
+            'nama_layanan' => 'required',
+            'kode_layanan'  => 'required',
         ];
     }
 }
