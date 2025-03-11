@@ -117,9 +117,13 @@
                             style=" float: right;">Tambah</button>
 
                     </form>
-                    <a href="{{ url('/instansi') }}"> <button class="btn btn-warning btn-simple m-2" style=" float: left;">
+                    <div class="col-md-2">
+                        <a type="button" href="{{ url('/instansi') }}"
+                            class="btn btn-warning btn-simple m-5 float-left d-inline-block">
                             Kembali
-                        </button></a>
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -258,13 +262,13 @@
                     console.error('There was an error!', error);
                 });
         }
-        // Fungsi untuk menyembunyikan bagian Edit dan menampilkan bagian Data Barang
+        // Fungsi untuk menyembunyikan bagian Edit dan menampilkan bagian Data
         function showData() {
             showSection.style.display = 'block';
             fromSection.style.display = 'none';
         }
 
-        // Fungsi untuk menyembunyikan bagian Data Barang dan menampilkan bagian Edit
+        // Fungsi untuk menyembunyikan bagian Data dan menampilkan bagian Edit
         function showForm() {
             showSection.style.display = 'none';
             fromSection.style.display = 'block';
@@ -316,7 +320,7 @@
                     console.log(formData)
                     console.log('Data respons dari server:', data);
                     alert("Data berhasil dikirim");
-                    // location.reload();
+                    location.reload();
                 })
                 .catch(error => {
                     console.error('Terjadi kesalahan:', error);
@@ -411,6 +415,8 @@
                         .then(responseData => {
                             console.log('Data respons dari server:', responseData);
                             alert("Data berhasil diedit");
+                            location.reload();
+
                         })
                         .catch(error => {
                             console.error('Terjadi kesalahan:', error);

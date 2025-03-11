@@ -32,8 +32,8 @@
                     <div class="container container-search mb-3">
                         <div class="search-container">
                             <input class="input" type="text" id="search-bar"
-                                placeholder="Search Berdasarkan Nama Instansi, dan alamat"
-                                onkeypress="if(event.keyCode === 13) searchInstansi()">
+                                placeholder="Search Berdasarkan Nama User, Username, email, No Handphone, Status dan Role"
+                                onkeypress="if(event.keyCode === 13) searchUser()">
                             <svg viewBox="0 0 24 24" class="search__icon">
                                 <g>
                                     <path
@@ -214,9 +214,13 @@
                             style=" float: right;">Tambah</button>
 
                     </form>
-                    <a href="{{ url('/user') }}"> <button class="btn btn-primary btn-simple m-2" style=" float: left;">
+                    <div class="col-md-2">
+                        <a type="button" href="{{ url('/user') }}"
+                            class="btn btn-warning btn-simple m-5 float-left d-inline-block">
                             Kembali
-                        </button></a>
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -265,7 +269,7 @@
             formSection.style.display = 'none';
         }
 
-        // Fungsi untuk menyembunyikan bagian Data Barang dan menampilkan bagian Edit
+        // Fungsi untuk menyembunyikan bagian Data  dan menampilkan bagian Edit
         function showForm() {
             showSection.style.display = 'none';
             formSection.style.display = 'block';

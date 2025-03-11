@@ -87,7 +87,8 @@ class AntrianController extends Controller
         $antrian = Antrian::whereHas('pengunjung', function ($pengunjungQuery) use ($searchQuery) {
             $pengunjungQuery->where('name', 'like', '%' . $searchQuery . '%');
         })->orWhereHas('layanan.instansi', function ($instansiQuery) use ($searchQuery) {
-            $instansiQuery->where('nama_instansi', 'like', '%' . $searchQuery . '%');
+            $instansiQuery->where('nama_instansi', 'like', '%' . $searchQuery . '%')
+            ->orWhere('nama_layanan', 'like', '%' . $searchQuery . '%');
         })->orWhere('nomor_antrian', 'like', '%' . $searchQuery . '%')
         ->orWhere('tanggal_antrian', 'like', '%' . $searchQuery . '%')
         ->with('pengunjung', 'layanan.instansi')

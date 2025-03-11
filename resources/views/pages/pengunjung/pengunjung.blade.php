@@ -31,8 +31,8 @@
                 <div class="container container-search mb-3">
                     <div class="search-container">
                         <input class="input" type="text" id="search-bar"
-                            placeholder="Search Berdasarkan Nama Instansi, dan alamat"
-                            onkeypress="if(event.keyCode === 13) searchInstansi()">
+                            placeholder="Search Berdasarkan Nama Pengunjung, username, email dan no handphone"
+                            onkeypress="if(event.keyCode === 13) searchPengunjung()">
                         <svg viewBox="0 0 24 24" class="search__icon">
                             <g>
                                 <path

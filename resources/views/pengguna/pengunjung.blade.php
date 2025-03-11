@@ -280,7 +280,7 @@
             .then(data => {
                 // Simpan data antrian ke variabel yourExistingBookingData
                 yourExistingBookingData = data.data;
-                console.log('Data Antrian:', yourExistingBookingData);
+                // console.log('Data Antrian:', yourExistingBookingData);
             })
             .catch(error => {
                 console.error('Gagal mengambil data antrian:', error);
@@ -292,7 +292,7 @@
                 .then(data => {
                     // Simpan data antrian ke variabel yourExistingBookingData
                     yourExistingBookingData = data.data;
-                    console.log('Data Antrian:', yourExistingBookingData);
+                    // console.log('Data Antrian:', yourExistingBookingData);
                 })
                 .catch(error => {
                     console.error('Gagal mengambil data antrian:', error);
@@ -314,7 +314,7 @@
             selectedDate.setUTCHours(0, 0, 0, 0);
 
             const dayOfWeek = selectedDate
-        .getDay();
+                .getDay();
 
             // Cek apakah hari yang dipilih adalah Sabtu (6) atau Minggu (0)
             if (dayOfWeek === 6 || dayOfWeek === 0) {
@@ -363,7 +363,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Berhasil mengirim data ke server:', data);
+                    // console.log('Berhasil mengirim data ke server:', data);
                     alert("berhasil melakukan booking, silahkan periksa antrian anda!!")
                     location.reload();
 
@@ -448,7 +448,7 @@
                     }
                 }
 
-                console.log('Data Antrian:', currentBookings);
+                // console.log('Data Antrian:', currentBookings);
                 showAntrianDetails(currentBookings);
             })
             .catch(error => {

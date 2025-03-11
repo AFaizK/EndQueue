@@ -44,6 +44,10 @@ h6 {
     .card-body-instansi {
         font-size: 20px;
     }
+    .card-instansi p {
+        text-align: justify;
+        font-size: 12px;
+    }
 }
 .custom-navbar {
     background-color: #c7e5f5;

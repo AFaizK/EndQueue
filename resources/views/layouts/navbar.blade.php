@@ -182,7 +182,7 @@
                         // Menghapus token dari penyimpanan lokal
                         localStorage.removeItem('authToken');
                         // Mengarahkan pengguna ke halaman login atau halaman lain yang sesuai
-                        window.location.href = "/login";
+                        window.location.href = "/";
                     })
                     .catch(error => {
                         console.error('There was a problem with the fetch operation:', error);

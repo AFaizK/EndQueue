@@ -1,0 +1,309 @@
+/* Setiap section mengisi seluruh tinggi layar */
+section {
+    min-height: 100vh;
+}
+body {
+    font-family: "Geologica", sans-serif;
+}
+/* Style Navbar */
+.navbar {
+    width: 100%;
+    padding: 20px 0;
+    z-index: 9999;
+    transition: all 0.3s ease;
+}
+#navbar .navbar-nav li.active > a {
+    content: "";
+    display: block;
+    border-bottom: 3px solid rgb(0, 0, 0);
+    width: 70%;
+    padding-bottom: 5px;
+    margin-bottom: -8px;
+}
+.navbar.sticky {
+    padding: 10px 0;
+
+    /* background-color: #00008B; */
+    background: #aebdc0;
+}
+.navbar-nav a {
+    margin-right: 50px;
+    font-size: 20px;
+}
+.square-img {
+    width: 50px; /* Sesuaikan lebar sesuai kebutuhan */
+    height: 50px; /* Sesuaikan tinggi sesuai kebutuhan */
+    object-fit: cover; /* Untuk memastikan gambar mengisi area yang ditentukan tanpa merubah rasio aspek */
+}
+
+.navbar-brand {
+    margin-left: 70px;
+}
+.navbar.sticky .nav-link:hover::after {
+    content: "";
+    display: block;
+    border-bottom: 3px solid rgb(0, 0, 0);
+    width: 100%;
+    padding-bottom: 5px;
+    margin-bottom: -8px;
+}
+.nav-link:hover::after {
+    content: "";
+    display: block;
+    border-bottom: 3px solid rgb(0, 0, 0);
+    width: 100%;
+    padding-bottom: 5px;
+    margin-bottom: -8px;
+}
+/* home */
+#home {
+    background-color: #fcfcfc;
+    opacity: 1;
+    background-image: linear-gradient(
+            30deg,
+            #e7f1f7 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #e7f1f7 87.5%,
+            #e7f1f7
+        ),
+        linear-gradient(
+            150deg,
+            #e7f1f7 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #e7f1f7 87.5%,
+            #e7f1f7
+        ),
+        linear-gradient(
+            30deg,
+            #e7f1f7 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #e7f1f7 87.5%,
+            #e7f1f7
+        ),
+        linear-gradient(
+            150deg,
+            #e7f1f7 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #e7f1f7 87.5%,
+            #e7f1f7
+        ),
+        linear-gradient(
+            60deg,
+            #e7f1f777 25%,
+            transparent 25.5%,
+            transparent 75%,
+            #e7f1f777 75%,
+            #e7f1f777
+        ),
+        linear-gradient(
+            60deg,
+            #e7f1f777 25%,
+            transparent 25.5%,
+            transparent 75%,
+            #e7f1f777 75%,
+            #e7f1f777
+        );
+    background-size: 80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+}
+#home p {
+    opacity: 1;
+    color: #222;
+    font-size: large;
+}
+#home img {
+    margin-top: -30px;
+}
+#home h3 {
+    opacity: 1;
+    font-size: 2.5em;
+    text-align: justify;
+    font-weight: 500;
+}
+.instansi h2 {
+    font-size: 50px;
+}
+.visimisi h2 {
+    font-size: 50px;
+}
+/* about us */
+#aboutUs {
+    background-color: #e8ebed;
+}
+.aboutUs p {
+    font-size: large;
+    text-align: justify;
+}
+.aboutUs h1 {
+    font-size: 50px;
+}
+
+/* visimisi */
+.visimisi li {
+    text-align: justify;
+    font-size: large;
+}
+#visimisi {
+    background-color: #c6dbe8;
+}
+.card {
+    --bg: #e8e8e8;
+    --contrast: #e2e0e0;
+    --grey: #93a1a1;
+    position: relative;
+    padding: 9px;
+    background-color: var(--bg);
+    border-radius: 35px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+        rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+/* style instansi */
+.instansi .text {
+    font-size: 50px;
+}
+.instansi {
+    color: white;
+    background-color: #b9b9b9;
+    opacity: 1;
+    background-image: radial-gradient(circle at center center, #000795, #b9b9b9),
+        repeating-radial-gradient(
+            circle at center center,
+            #000795,
+            #000795,
+            29px,
+            transparent 58px,
+            transparent 29px
+        );
+    background-blend-mode: multiply;
+}
+
+.instansi .title::before {
+    background-color: white;
+}
+
+.instansi .carousel .kartu {
+    color: #000;
+    background-color: white;
+    border-radius: 40px;
+    padding: 25px 35px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.instansi .carousel .kartu:hover {
+    color: white;
+    background-color: #b9b9b9;
+    opacity: 1;
+    background-image: radial-gradient(circle at center center, #000795, #b9b9b9),
+        repeating-radial-gradient(
+            circle at center center,
+            #000795,
+            #000795,
+            29px,
+            transparent 58px,
+            transparent 29px
+        );
+    background-blend-mode: multiply;
+}
+
+.instansi .carousel .kartu img {
+    max-width: 150px;
+    min-height: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #035989;
+}
+
+.instansi .carousel .kartu .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.instansi .carousel .kartu:hover .box {
+    transform: scale(1.05);
+}
+
+.instansi .carousel .kartu .text {
+    font-size: 25px;
+    font-weight: 500;
+    margin: 10px 0 7px 0;
+}
+
+.instansi .carousel .kartu:hover img {
+    border-color: rgb(169, 160, 160);
+    transition: all 0.3s ease;
+}
+
+.owl-dots {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.owl-dot {
+    height: 13px;
+    width: 13px;
+    margin: 0 5px;
+    outline: none !important;
+    border-radius: 50%;
+    border: 2px solid rgb(255, 255, 255) !important;
+    transition: all 0.3s ease;
+}
+
+.owl-dot.active {
+    width: 35px;
+    border-radius: 14px;
+}
+
+.owl-dot.active,
+.owl-dot:hover {
+    background: #ffffff !important;
+}
+
+/* footer */
+footer {
+    color: white;
+    background-color: #02006c;
+    width: 100%;
+    padding: 20px 23px;
+    text-align: center;
+}
+
+@media (max-width: 750px) {
+    footer img {
+        width: 100px;
+    }
+    #home h3 {
+        font-size: 1.5em;
+        text-align: justify;
+        font-weight: 500;
+
+        margin-top: -120px;
+    }
+    #home p {
+        text-align: justify;
+    }
+    .navbar-brand {
+        margin-left: 0;
+    }
+    #home img {
+        display: none;
+    }
+    #aboutUs img {
+        display: none;
+    }
+    #aboutUs p {
+        text-align: justify;
+    }
+    .aboutUs h1 {
+        font-size: 30px;
+    }
+}

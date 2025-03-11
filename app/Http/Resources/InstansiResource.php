@@ -19,7 +19,7 @@ class InstansiResource extends JsonResource
             'id' => $this->id,
             'nama_instansi' => $this->nama_instansi,
             'alamat' => $this->alamat,
-            'logo' => $this->logoUrl(), // Menambahkan URL gambar
+            'logo' => $this->logoUrl(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

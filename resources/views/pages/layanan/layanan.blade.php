@@ -32,8 +32,8 @@
                     <div class="container container-search mb-3">
                         <div class="search-container">
                             <input class="input" type="text" id="search-bar"
-                                placeholder="Search Berdasarkan Nama Instansi, dan alamat"
-                                onkeypress="if(event.keyCode === 13) searchInstansi()">
+                                placeholder="Search Berdasarkan Nama Layanan, Nama Instansi, dan Kode Layanan"
+                                onkeypress="if(event.keyCode === 13) searchLayanan()">
                             <svg viewBox="0 0 24 24" class="search__icon">
                                 <g>
                                     <path
@@ -118,9 +118,13 @@
                             style=" float: right;">Tambah</button>
 
                     </form>
-                    <a href="{{ url('/layanan') }}"> <button class="btn btn-primary btn-simple m-2" style=" float: left;">
+                    <div class="col-md-2">
+                        <a type="button" href="{{ url('/layanan') }}"
+                            class="btn btn-warning btn-simple m-5 float-left d-inline-block">
                             Kembali
-                        </button></a>
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -138,7 +142,7 @@
         const showSection = document.getElementById('showSection');
         const formSection = document.getElementById('formSection');
         const InstansiDropdown = document.getElementById('inputinstansi');
-        // Fungsi untuk menyembunyikan bagian Edit dan menampilkan bagian Data Barang
+        // Fungsi untuk menyembunyikan bagian Edit dan menampilkan bagian Data
         const urlPagination = "http://localhost:8000/api/layanan/pagination"
         let currentPage = 1;
         const prevButton = document.getElementById('prev-button');
@@ -267,7 +271,7 @@
             formSection.style.display = 'none';
         }
 
-        // Fungsi untuk menyembunyikan bagian Data Barang dan menampilkan bagian Edit
+        // Fungsi untuk menyembunyikan bagian Data dan menampilkan bagian Edit
         function showForm() {
             showSection.style.display = 'none';
             formSection.style.display = 'block';
@@ -288,7 +292,7 @@
 
 
             if (!selectedInstansi) {
-                alert("Silakan pilih kategori barang ");
+                alert("Silakan pilih instansi ");
                 return;
             }
             const NamaLayanan = document.getElementById("nama_layanan").value;
@@ -334,7 +338,7 @@
                 });
         });
 
-        // Fetch kategori barang dari API dan isi dropdown
+        // Fetch dari API dan isi dropdown
         fetch('http://localhost:8000/api/getall-instansi')
             .then(response => response.json())
             .then(data => {
@@ -407,9 +411,9 @@
                     e.preventDefault();
                     const selectedInstansi = InstansiDropdown.value;
 
-                    // Memastikan Instansi barang dan supplier terpilih
+                    // Memastikan Instansi
                     if (!selectedInstansi) {
-                        alert("Silakan pilih Instansi barang dan supplier.");
+                        alert("Silakan pilih Instansi");
                         return;
                     }
                     // console.log(id);

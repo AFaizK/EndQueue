@@ -88,9 +88,3 @@ Route::get('/edit-profile', [ProfileController::class, 'edit']);
 
 
 
-    // Route::get('/get-profile', [profileController::class, 'fetchData']);
-
-// Route::middleware('auth:sanctum')->group(function () {
-
-//     Route::get('/dashboard', DashboardController::class . '@index');
-// });
