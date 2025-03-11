@@ -117,21 +117,7 @@ Route::middleware(['auth.sanctum'])->group(function () {
 
 
     // Pengunjung
-    Route::get('/penggunalandingpage', function () {
-        return view('/pengguna/landingpage');
-    });
-    
-    Route::get('/endqueuebooking', function () {
-        return view('/pengguna/endqueue');
-    });
-    
-    Route::get('/endqueuepilihlayanan', function () {
-        return view('/pengguna/pilih_layanan');
-    });
-    
-    Route::get('/endqueuetiket', function () {
-        return view('/pengguna/endqueue_tiket');
-    });
+
 
 // });
 
