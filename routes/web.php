@@ -88,27 +88,3 @@ Route::middleware(['auth.sanctum'])->group(function () {
 
 });
 
-<<<<<<< HEAD
-=======
-
-    // Pengunjung
-    Route::get('/penggunalandingpage', function () {
-        return view('/pengguna/landingpage');
-    });
-    
-    Route::get('/endqueuebooking', function () {
-        return view('/pengguna/endqueue');
-    });
-    
-    Route::get('/endqueuepilihlayanan', function () {
-        return view('/pengguna/pilih_layanan');
-    });
-    
-    Route::get('/endqueuetiket', function () {
-        return view('/pengguna/endqueue_tiket');
-    });
-
-// });
-
-
->>>>>>> b89d791a46e9c7b6cb2b53133ea1f679737a1005
